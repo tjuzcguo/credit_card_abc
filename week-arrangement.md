@@ -6,4 +6,7 @@
   paper1 : I Know You’ll Be Back: Interpretable New User Clustering and Churn Prediction on a Mobile Social App
   paper2 : Customized Regression Model for Airbnb Dynamic Pricing
   
+2019-7-15
+   台大李宏毅教授 机器学习课程
+  
   
