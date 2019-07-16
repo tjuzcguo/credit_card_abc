@@ -8,5 +8,6 @@
   
 2019-7-15
    台大李宏毅教授 机器学习课程
+   learned RNN/LSTM course of Mr.Li on youtube 
   
   
