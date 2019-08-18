@@ -26,7 +26,7 @@ print("Building model......")
 embedding_size=32
 model=Sequential()
 model.add(Embedding(vocabulary_size, embedding_size, input_length=max_words))
-model.add(LSTM(100))
+model.add(LSTM(128))
 model.add(Dense(1, activation='sigmoid'))
 print(model.summary())
 
