@@ -14,6 +14,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 from keras.optimizers import RMSprop
+from keras.utils import plot_model
 from keras.utils.data_utils import get_file
 import numpy as np
 import random
@@ -23,12 +24,12 @@ import io
 path = get_file(
     'nietzsche.txt',
     origin='https://s3.amazonaws.com/text-datasets/nietzsche.txt')
-with io.open(r'D:\tmp\rnn\text_data.txt', encoding='utf-8') as f:
+with io.open(path, encoding='utf-8') as f:
     text = f.read().lower()
 print('corpus length:', len(text))
 
-inset=set(text)
-inlist=list(inset)
+inset = set(text)
+inlist = list(inset)
 insorted = sorted(inlist)
 
 chars = sorted(list(set(text)))
@@ -54,7 +55,6 @@ for i, sentence in enumerate(sentences):
         x[i, t, char_indices[char]] = 1
     y[i, char_indices[next_chars[i]]] = 1
 
-
 # build the model: a single LSTM
 print('Build model...')
 model = Sequential()
@@ -63,6 +63,7 @@ model.add(Dense(len(chars), activation='softmax'))
 
 optimizer = RMSprop(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
+
 
 # plot_model(model, to_file='model.png')
 
@@ -107,6 +108,7 @@ def on_epoch_end(epoch, _):
             sys.stdout.flush()
         print()
 
+
 print_callback = LambdaCallback(on_epoch_end=on_epoch_end)
 
 model.fit(x, y,
@@ -115,5 +117,3 @@ model.fit(x, y,
           callbacks=[print_callback])
 
 model.save("predictText.h5")
-
-
