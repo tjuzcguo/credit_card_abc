@@ -1,9 +1,7 @@
 from keras.datasets import imdb
 from keras.preprocessing import sequence
 from keras import Sequential
-from keras.layers import Embedding, LSTM, Dense, Dropout
-
-
+from keras.layers import Embedding, LSTM, Dense, Dropout, Bidirectional, BatchNormalization
 
 vocabulary_size = 5000
 (X_train, y_train), (X_test, y_test) = imdb.load_data(num_words = vocabulary_size)
@@ -25,8 +23,15 @@ X_test = sequence.pad_sequences(X_test, maxlen=max_words)
 print("Building model......")
 embedding_size=32
 model=Sequential()
+
 model.add(Embedding(vocabulary_size, embedding_size, input_length=max_words))
+# bi-LSTM
+#model.add(Bidirectional(LSTM(128)))
+model.add(Dropout(0.5))
+
 model.add(LSTM(128))
+
+#model.add(BatchNormalization())
 model.add(Dense(1, activation='sigmoid'))
 print(model.summary())
 
